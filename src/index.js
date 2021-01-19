@@ -1,12 +1,25 @@
 const http = require('http')
 const fs = require('fs')
 
-const file = './src/index.html'
+const path = require('path')
 const server = http.createServer((request, response) => {
-    response.writeHead(200, {
-        'Content-Type': 'text/html; charset:UTF-8'
-    })
-    fs.readFile(file, (err, content) => {
+    let filePath = request.url
+    if (filePath === '/') {
+        filePath = 'index.html'
+    }
+    filePath = `./src/${filePath}`
+
+    const extname = path.extname(filePath)
+    switch (extname) {
+        case '.css':
+            contentType = 'text/css'
+            break;
+        case '.html':
+            contentType = 'text/html'
+            break;
+    }
+    response.writeHead(200, { 'Content-Type': `${contentType}; charset=UTF-8` })
+    fs.readFile(filePath, (err, content) => {
         if (err) {
             return console.log(err)
         }
