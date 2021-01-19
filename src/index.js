@@ -1,13 +1,18 @@
 const http = require('http')
+const fs = require('fs')
 
+const file = './src/index.html'
 const server = http.createServer((request, response) => {
-    if (request.method === 'GET') {
-        response.write('<h1>Metodo valido hello</h1>')
-        return response.end()
-    }
-
-    response.write('<h1>Esta intentando acceder con un metodo no valido</h1>')
-    return response.end()
+    response.writeHead(200, {
+        'Content-Type': 'text/html; charset:UTF-8'
+    })
+    fs.readFile(file, (err, content) => {
+        if (err) {
+            return console.log(err)
+        }
+        response.write(content)
+        response.end()
+    })
 })
 
 server.listen(8000, 'localhost', err => {
