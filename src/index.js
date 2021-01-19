@@ -1,26 +1,21 @@
-//console.log('hola mundo')
-//console.log('Sandra')
-// Muestra el número total de lineas, y el número de palabras por linea
+//creamos servidor (socket)
+const net = require('net')
 
-const readline = require('readline');
-const fs = require('fs')
-
-const file = process.argv[2]
-let lines = 0
-
-console.log(`Fichero selecionado: ${file}\n`)
-
-// Emite el evento 'line' cuando lee una linea
-const rl = readline.createInterface({
-    input: fs.createReadStream(file),
-    crlfDelay: Infinity
+const server = net.createServer(socket => {
+    socket.on('data', data => {
+        console.log(data.toString())
+        socket.write('Mundo?')
+    })
 })
 
-rl.on('line', (line) => {
-    ++lines
-    console.log(`Número de caracteres por linea: ${line.length}`)
-})
+server.on('error', () => console.log('se ha producido un error'))
 
-rl.on('close', () => {
-    console.log(`\nNúmero total de lineas: ${lines}`)
-})
+server.on('connect', () => console.log('socket connected'))
+
+server.listen({
+        host: 'localhost',
+        port: 3000,
+        exclusive: true
+    },
+    () => console.log(`Servidor socket abierto en ${server.address()}`)
+)
