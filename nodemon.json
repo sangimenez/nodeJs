@@ -1,0 +1,11 @@
+{
+    "restartable": "rs",
+    "verbose": true,
+    "ignore": [
+        "node-modules"
+    ],
+    "watch": [
+        "src"
+    ],
+    "ext": "js"
+}
