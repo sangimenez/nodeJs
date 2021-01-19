@@ -19,7 +19,8 @@
     },
     "author": "sandra",
     "license": "MIT",
+    "dependencies": {},
     "devDependencies": {
-        "nodemon": "^1.19.4"
+        "nodemon": "^1.14.8"
     }
 }
